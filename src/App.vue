@@ -1,28 +1,50 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <Header @getQuery="searchProduct" />
+    <Main :products="products" />
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import axios from "axios";
+import Header from "./components/Header.vue";
+import Main from "./components/Main.vue";
 
 export default {
-  name: 'App',
+  name: "App",
+  data() {
+    return {
+      params: {
+        baseUri: "https://api.themoviedb.org/3/",
+        endPoint: "search/movie/?",
+        api_key: "8da4582a7a923450a3b9300a782fbf1a",
+        language: "it-IT",
+      },
+      products: [],
+    };
+  },
   components: {
-    HelloWorld
-  }
-}
+    Header,
+    Main,
+  },
+  methods: {
+    searchProduct(query) {
+      axios
+        .get(`${this.params.baseUri}${this.params.endPoint}`, {
+          params: {
+            api_key: this.params.api_key,
+            language: this.params.language,
+            query: query,
+          },
+        })
+        .then((res) => {
+          this.products = res.data.results;
+        });
+    },
+  },
+};
 </script>
 
 <style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+@import "~bootstrap/scss/bootstrap";
 </style>
