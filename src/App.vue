@@ -16,7 +16,7 @@ export default {
     return {
       params: {
         baseUri: "https://api.themoviedb.org/3/",
-        endPoint: "search/movie/?",
+        endPoints: ["search/movie/?", "search/tv/?"],
         api_key: "8da4582a7a923450a3b9300a782fbf1a",
         language: "it-IT",
       },
@@ -29,17 +29,20 @@ export default {
   },
   methods: {
     searchProduct(query) {
-      axios
-        .get(`${this.params.baseUri}${this.params.endPoint}`, {
-          params: {
-            api_key: this.params.api_key,
-            language: this.params.language,
-            query: query,
-          },
-        })
-        .then((res) => {
-          this.products = res.data.results;
-        });
+      this.products = [];
+      this.params.endPoints.forEach((endPoint) => {
+        axios
+          .get(`${this.params.baseUri}${endPoint}`, {
+            params: {
+              api_key: this.params.api_key,
+              language: this.params.language,
+              query: query,
+            },
+          })
+          .then((res) => {
+            this.products = [...this.products, ...res.data.results];
+          });
+      });
     },
   },
 };

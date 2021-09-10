@@ -15,7 +15,9 @@ export default {
   },
   methods: {
     getQuery() {
-      this.$emit("getQuery", this.query);
+      if (this.query) {
+        this.$emit("getQuery", this.query);
+      }
     },
   },
 };
