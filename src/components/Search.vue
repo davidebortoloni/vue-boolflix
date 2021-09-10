@@ -1,6 +1,6 @@
 <template>
   <div>
-    <input type="text" v-model="query" />
+    <input type="text" v-model="query" placeholder="Scrivi qui..." />
     <button type="button" @click="getQuery">Cerca</button>
   </div>
 </template>
