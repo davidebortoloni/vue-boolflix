@@ -1,8 +1,10 @@
 <template>
   <main>
-    <div>
-      <div v-for="product in products" :key="product.id">
-        <Product :product="product" />
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-4" v-for="product in products" :key="product.id">
+          <Product :product="product" />
+        </div>
       </div>
     </div>
   </main>
@@ -20,4 +22,11 @@ export default {
 };
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+main {
+  background-color: black;
+  padding-top: 100px;
+  height: 100vh;
+  overflow: auto;
+}
+</style>

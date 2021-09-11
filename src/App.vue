@@ -41,6 +41,9 @@ export default {
           })
           .then((res) => {
             this.products = [...this.products, ...res.data.results];
+          })
+          .catch((err) => {
+            console.log(err);
           });
       });
     },

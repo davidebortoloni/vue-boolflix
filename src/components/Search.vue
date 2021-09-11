@@ -1,7 +1,14 @@
 <template>
-  <div>
-    <input type="text" v-model="query" placeholder="Scrivi qui..." />
-    <button type="button" @click="getQuery">Cerca</button>
+  <div class="input-group mb-3">
+    <input
+      type="text"
+      class="form-control"
+      v-model="query"
+      placeholder="Scrivi qui..."
+    />
+    <button class="btn btn-outline-danger" type="button" @click="getQuery">
+      Cerca
+    </button>
   </div>
 </template>
 

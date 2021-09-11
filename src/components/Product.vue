@@ -1,26 +1,33 @@
 <template>
-  <div>
+  <div class="card">
+    <img
+      class="w-100 cover"
+      :src="getPosterUrl()"
+      :alt="`Copertina${getTitle()}`"
+    />
     <ul class="list-group">
       <li>
-        <img
-          class="poster"
-          :src="getPosterUrl()"
-          :alt="`Copertina${getTitle()}`"
-        />
+        <h6 class="d-inline">Titolo:</h6>
+        {{ getTitle() }}
       </li>
-      <li>Titolo: {{ getTitle() }}</li>
-      <li>Titolo originale: {{ getOriginalTitle() }}</li>
+      <li>
+        <h6 class="d-inline">Titolo originale:</h6>
+        {{ getOriginalTitle() }}
+      </li>
       <li v-if="flags.includes(product.original_language)">
-        Lingua originale:
+        <h6 class="d-inline">Lingua originale:</h6>
         <img
           class="language"
           :src="getFlag()"
           :alt="product.original_language"
         />
       </li>
-      <li v-else>Lingua originale: {{ product.original_language }}</li>
-      <li>
-        Voto:
+      <li v-else>
+        <h6 class="d-inline">Lingua originale:</h6>
+        {{ product.original_language }}
+      </li>
+      <li class="vote">
+        <h6 class="d-inline">Voto:</h6>
         <i v-for="(star, index) in vote" :key="index" class="fas fa-star"></i>
         <i
           v-for="(star, index) in 5 - vote"
@@ -28,8 +35,11 @@
           class="far fa-star"
         ></i>
       </li>
+      <li>
+        <h6 class="d-inline">Trama:</h6>
+        {{ product.overview }}
+      </li>
     </ul>
-    <hr />
   </div>
 </template>
 
@@ -37,7 +47,11 @@
 export default {
   name: "Product",
   data() {
-    return { flags: ["en", "it", "fr", "es"], flagPresent: false };
+    return {
+      flags: ["en", "it", "fr", "es"],
+      flagPresent: false,
+      isHover: false,
+    };
   },
   computed: {
     vote() {
@@ -71,10 +85,34 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.language {
-  width: 40px;
+.card {
+  background-color: transparent;
+  font-size: 14px;
+  color: white;
+  cursor: pointer;
+  height: 100%;
+  &:hover {
+    .cover {
+      display: none;
+    }
+    ul {
+      display: inline-block;
+      h6 {
+        margin-right: 5px;
+      }
+    }
+  }
+  ul {
+    list-style-type: none;
+    display: none;
+  }
 }
-.poster {
-  width: 150px;
+.language {
+  width: 30px;
+}
+.vote {
+  i {
+    color: gold;
+  }
 }
 </style>
