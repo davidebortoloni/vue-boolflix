@@ -4,10 +4,11 @@
       type="text"
       class="form-control"
       v-model="query"
-      placeholder="Scrivi qui..."
+      :placeholder="placeholder"
+      @keyup.enter="getQuery"
     />
     <button class="btn btn-outline-danger" type="button" @click="getQuery">
-      Cerca
+      {{ buttonContent }}
     </button>
   </div>
 </template>
@@ -20,11 +21,10 @@ export default {
       query: "",
     };
   },
+  props: ["placeholder", "buttonContent"],
   methods: {
     getQuery() {
-      if (this.query) {
-        this.$emit("getQuery", this.query);
-      }
+      this.$emit("getQuery", this.query);
     },
   },
 };

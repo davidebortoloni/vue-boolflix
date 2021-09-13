@@ -6,7 +6,11 @@
           <h1>BOOLFLIX</h1>
         </div>
         <div class="col-auto">
-          <Search @getQuery="getQuery" />
+          <Search
+            @getQuery="getQuery"
+            placeholder="Scrivi qui..."
+            buttonContent="Cerca"
+          />
         </div>
       </div>
     </div>
@@ -34,6 +38,7 @@ header {
   position: fixed;
   background-color: black;
   z-index: 1;
+  border-bottom: 3px solid rgb(229, 9, 20);
 }
 h1 {
   color: rgb(229, 9, 20);

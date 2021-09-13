@@ -3,7 +3,7 @@
     <img
       class="w-100 cover"
       :src="getPosterUrl()"
-      :alt="`Copertina${getTitle()}`"
+      :alt="`Copertina ${getTitle()}`"
     />
     <ul class="list-group">
       <li>
@@ -37,7 +37,12 @@
       </li>
       <li>
         <h6 class="d-inline">Trama:</h6>
-        {{ product.overview }}
+        <span v-if="product.overview">
+          {{ product.overview }}
+        </span>
+        <span v-else>
+          ...
+        </span>
       </li>
     </ul>
   </div>
@@ -60,7 +65,10 @@ export default {
   },
   methods: {
     getPosterUrl() {
-      return `https://image.tmdb.org/t/p/w342${this.product.poster_path}`;
+      if (this.product.poster_path) {
+        return `https://image.tmdb.org/t/p/w342${this.product.poster_path}`;
+      }
+      return `https://www.altavod.com/assets/images/poster-placeholder.png`;
     },
     getFlag() {
       return require(`@/assets/img/${this.product.original_language}.png`);
